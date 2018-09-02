@@ -1,14 +1,49 @@
-const http = require('http');
+var express = require('express')
+	,app = express()
+	,server
 
-const hostname = '127.0.0.1';
-const port = 3000;
+var store = {
+	home: {
+		page: 'Home page',
+		content: 'Home, seet home'
+	},
+	about: {
+		page: 'about page',
+		content: 'about, seet about'
+	},
+	downloads: {
+		page: 'downloads page',
+		content: 'downloads, seet downloads'
+	},
+	profile: {
+		page: 'profile page',
+		content: 'profile, seet profile'
+	}
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World!\n');
+}
+
+app.set('view engine','pug');
+app.use(express.static(__dirname + '/public'))
+app.use((req,res,next)=>{
+	console.log('%s %s',req.method,req.url);
+	next()
+})
+
+
+
+app.get('/:page?',(req,res)=>{
+		var page = req.params.page,data;
+		if(!page) page = 'home'
+		data = store[page];
+		if (!data) {
+			res.redirect('/');
+			return;
+		}
+		
+		data.links = Object.keys(store);
+		res.render('main',data)
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+server = app.listen(3000,()=>{
+	console.log('Listen on port 3000');
+})
