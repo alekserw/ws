@@ -1,6 +1,7 @@
-var express = require('express')
-	,app = express()
-	,server
+var express = require('express'),
+	bodyParser = require('body-parser'),
+	app = express(),
+	server
 
 var store = {
 	home: {
@@ -9,7 +10,13 @@ var store = {
 	},
 	about: {
 		page: 'about page',
-		content: 'about, seet about'
+		content: 'about, seet about',
+		clientInfo: {
+			ip:'',
+			userAgent:'',
+			sr:'',
+			vp:''
+		}
 	},
 	downloads: {
 		page: 'downloads page',
@@ -20,16 +27,60 @@ var store = {
 		content: 'profile, seet profile'
 	}
 
-}
+},
+storeKeys = Object.keys(store);
 
 app.set('view engine','pug');
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({extended:true}));
+
 app.use((req,res,next)=>{
+	
 	console.log('%s %s',req.method,req.url);
 	next()
 })
 
+app.get('/stat',(req,res)=>{
+	console.log(req.query);
 
+	// var data = 
+	console.log(req.cookie);
+	// res.sendStatus(200);
+})
+
+app.get('/about',(req,res)=>{
+	var data,page = 'about',
+	data = store[page];
+	data.clientInfo.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+	data.clientInfo.userAgent = req.get('User-Agent');
+	console.log(data);
+	
+	data.links = storeKeys;
+	res.render('about',data)
+})
+
+
+
+app.route('/new')
+	.get((req,res)=>{
+		res.render('new',{
+			page:'Add new',
+			links: storeKeys
+		})
+	})
+	.post((req,res)=>{
+		var data = req.body;
+
+		if(data.pageurl && data.pagename && data.pagecontent){
+			// console.log(data);
+			store[data.pageurl] = {
+				page: data.pagename,
+				content: data.pagecontent
+			};
+			storeKeys = Object.keys(store)
+		}
+		res.redirect('/');
+	})
 
 app.get('/:page?',(req,res)=>{
 		var page = req.params.page,data;
@@ -40,7 +91,7 @@ app.get('/:page?',(req,res)=>{
 			return;
 		}
 		
-		data.links = Object.keys(store);
+		data.links = storeKeys;
 		res.render('main',data)
 });
 
