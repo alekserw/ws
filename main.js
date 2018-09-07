@@ -8,9 +8,13 @@ var store = {
 		page: 'Home page',
 		content: 'Home, seet home'
 	},
+	chat: {
+		page: 'Chat',
+		content: 'Hello my frэnd!'
+	},
 	about: {
-		page: 'about page',
-		content: 'about, seet about',
+		page: 'About page',
+		content: 'About, seet about',
 		clientInfo: {
 			ip:'',
 			userAgent:'',
@@ -19,12 +23,12 @@ var store = {
 		}
 	},
 	downloads: {
-		page: 'downloads page',
-		content: 'downloads, seet downloads'
+		page: 'Downloads page',
+		content: 'Downloads'
 	},
 	profile: {
-		page: 'profile page',
-		content: 'profile, seet profile'
+		page: 'Profile page',
+		content: 'Profile, seet profile'
 	}
 
 },
@@ -43,7 +47,7 @@ app.use((req,res,next)=>{
 app.get('/stat',(req,res)=>{
 	console.log(req.query);
 
-	// var data = 
+	// store.about 
 	console.log(req.cookie);
 	// res.sendStatus(200);
 })
@@ -58,6 +62,34 @@ app.get('/about',(req,res)=>{
 	data.links = storeKeys;
 	res.render('about',data)
 })
+
+app.route('/chat')
+	.get((req,res)=>{
+		var data,page = 'chat',
+			p = req.params.page,
+			data = store[page];
+			
+			console.log(p);
+		
+		data.links = storeKeys;
+		res.render('chat',data)
+	})
+	.post((req,res)=>{
+		var data,page = 'chat',
+			p = req.params.page,
+			d = new Date(),
+			time = d.getHours() +':'+ d.getMinutes() + ' - ',
+
+			// storeKeys = Object.keys(store);
+			data = store[page];
+			data.links = storeKeys;
+
+			// console.log('This is log: ' + data.content);
+		if(req.body.message) 
+				data.content = time + req.body.message + '\n' + data.content
+		   res.render('chat',data)
+		
+	})
 
 
 
