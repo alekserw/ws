@@ -1,6 +1,7 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
 	cookieParser = require('cookie-parser'),
+	passport = require('passport'),
 	app = express(),
 	server
 
@@ -33,6 +34,7 @@ var store = {
 	}
 
 },
+users = {},
 storeKeys = Object.keys(store);
 
 app.set('view engine','pug');
@@ -43,7 +45,7 @@ app.use(cookieParser());
 // set a cookie
 app.use(function (req, res, next) {
   // check if client sent cookie
-  var cookie = req.cookies.cookieName;
+  var cookie = req.cookies.userId;
   if (cookie === undefined)
   {
     // no: set a new cookie
@@ -70,6 +72,8 @@ app.use((req,res,next)=>{
 	next()
 })
 
+
+
 app.get('/stat',(req,res)=>{
 	// console.log(req.query);
 
@@ -93,29 +97,69 @@ app.route('/chat')
 	.get((req,res)=>{
 		var data,page = 'chat',
 			p = req.params.page,
+			user = req.cookies.user,
 			data = store[page];
-			
-			console.log(p);
+			data.links = storeKeys;	
+						
+
+			if (!user) {
+
+				function clone(obj) {
+				    if (null == obj || "object" != typeof obj) return obj;
+				    var copy = obj.constructor();
+				    for (var attr in obj) {
+				        if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
+				    }
+				    return copy;
+				}
+
+				var dataLogin =  clone(data);
+				dataLogin.content = 'AI: Введите Ваше имя сударь';
+				
+				res.render('chat',dataLogin)
+
+			}
+			else res.render('chat',data);
+
+			console.log(data);
+
+
 		
-		data.links = storeKeys;
-		res.render('chat',data)
 	})
 	.post((req,res)=>{
 		var data,page = 'chat',
 			p = req.params.page,
 			d = new Date(),
+			user = req.cookies.user,
 			time = d.getHours() +':'+ d.getMinutes() + ' - ',
-			cookie = req.cookies.cookieName,
-			message = req.body.message,
-			// userName = 
-			// storeKeys = Object.keys(store);
+			cookie = req.cookies.userId,
+			message = req.body.message;
+			
 			data = store[page];
 			data.links = storeKeys;
 
+
+			if (user === undefined) {
+				res.cookie('user',message, { maxAge: 900000, httpOnly: true });
+				console.log('cookies user set');
+				console.log(data);
+				return res.render('chat',data);
+				
+			}
+
+
+		
 			// console.log('This is log: ' + data.content);
-		if(req.body.message) 
-				data.content = cookie + ' ' + time + message + '\n' + data.content
-		   res.render('chat',data)
+		
+			function updateMessage(){
+					if (user === undefined){
+										}
+					else
+						data.content = user + 	' ' + time + message + '\n' + data.content;
+
+			}
+			if(req.body.message) updateMessage();
+			res.render('chat',data)
 		
 	})
 
@@ -131,7 +175,7 @@ app.route('/new')
 	.post((req,res)=>{
 		var data = req.body;
 
-		if(data.pageurl && data.pagename && data.pagecontent){
+		if(data.name){
 			// console.log(data);
 			store[data.pageurl] = {
 				page: data.pagename,

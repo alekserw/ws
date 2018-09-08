@@ -1,18 +1,10 @@
 extends layout
 block content
-	form(method='post' action='/new')
+	form(method='post' action='/login')
 		fieldset
 			.form-group
-				label(for='pageurl') Page Url
-				input#pageurl.form-control(name='pageurl' type='text')
-
-			.form-group
-				label(for='pagename') Page Name
-				input#pagename.form-control(name='pagename' type='text')
-
-			.form-group
-				label(for='pagecontent') Page Content
-				input#pagecontent.form-control(name='pagecontent' type='text')
+				label(for='name') Имя:
+				input#name.form-control(name='name' type='text')
 
 			.form-group
 				button.btn.btn-primary(type='submit') Add
