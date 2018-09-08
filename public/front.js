@@ -29,6 +29,6 @@ function httpGetAsync(theUrl,callback)
     xmlHttp.send(null);
 }
 
-httpGetAsync(url +'?' + params);
+// httpGetAsync(url +'?' + params);
 
 

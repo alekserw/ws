@@ -1,5 +1,6 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
+	cookieParser = require('cookie-parser'),
 	app = express(),
 	server
 
@@ -35,6 +36,31 @@ var store = {
 storeKeys = Object.keys(store);
 
 app.set('view engine','pug');
+
+// need cookieParser middleware before we can do anything with cookies
+app.use(cookieParser());
+
+// set a cookie
+app.use(function (req, res, next) {
+  // check if client sent cookie
+  var cookie = req.cookies.cookieName;
+  if (cookie === undefined)
+  {
+    // no: set a new cookie
+    var randomNumber=Math.random().toString();
+    randomNumber=randomNumber.substring(2,randomNumber.length);
+    res.cookie('userId',randomNumber, { maxAge: 900000, httpOnly: true });
+    console.log('cookie created successfully');
+  } 
+  else
+  {
+    // yes, cookie was already present 
+    console.log('cookie exists', cookie);
+  } 
+  next(); // <-- important!
+});
+
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -45,10 +71,10 @@ app.use((req,res,next)=>{
 })
 
 app.get('/stat',(req,res)=>{
-	console.log(req.query);
+	// console.log(req.query);
 
 	// store.about 
-	console.log(req.cookie);
+	// console.log(req.cookie);
 	// res.sendStatus(200);
 })
 
@@ -57,7 +83,7 @@ app.get('/about',(req,res)=>{
 	data = store[page];
 	data.clientInfo.ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress,
 	data.clientInfo.userAgent = req.get('User-Agent');
-	console.log(data);
+	// console.log(data);
 	
 	data.links = storeKeys;
 	res.render('about',data)
@@ -79,14 +105,16 @@ app.route('/chat')
 			p = req.params.page,
 			d = new Date(),
 			time = d.getHours() +':'+ d.getMinutes() + ' - ',
-
+			cookie = req.cookies.cookieName,
+			message = req.body.message,
+			// userName = 
 			// storeKeys = Object.keys(store);
 			data = store[page];
 			data.links = storeKeys;
 
 			// console.log('This is log: ' + data.content);
 		if(req.body.message) 
-				data.content = time + req.body.message + '\n' + data.content
+				data.content = cookie + ' ' + time + message + '\n' + data.content
 		   res.render('chat',data)
 		
 	})
