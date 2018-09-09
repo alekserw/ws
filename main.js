@@ -140,7 +140,7 @@ app.route('/chat')
 
 
 			if (user === undefined) {
-				res.cookie('user',message, { maxAge: 900000, httpOnly: true });
+				res.cookie('user',message, { maxAge: 9000000000, httpOnly: true });
 				console.log('cookies user set');
 				console.log(data);
 				return res.render('chat',data);
