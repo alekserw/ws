@@ -1,0 +1,48 @@
+<canvas id='canvas' width='450' height='300'></canvas>
+<script>
+
+var r = 10,rv=1,
+	i= 40;
+
+// window.onload=function(){
+// 	// var ctx = document.getElementById('canvas').getContext('2d');
+// 	// cc=ctx.getContext('2d');
+	
+// 	// ctx.addEventListener('mousemove',function(e){
+// 	// 	p1y = e.clientY-ph/2
+// 	// })
+// }
+
+
+
+function draw() {
+    var ctx = document.getElementById('canvas').getContext('2d');
+    
+    if (r>40){
+    	rv=-rv;
+    }
+    if (r<10){
+    	rv=-rv;
+    }
+
+    r+=rv
+
+
+    ctx.fillStyle='white'
+	ctx.fillRect(0,0,500,500);
+
+    for (var i = 0; i < 16; i++) {
+      for (var j = 0; j < 16; j++) {
+        ctx.strokeStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * i) + ', ' + 
+                         Math.floor(255 - 42.5 * j) + ')';
+        ctx.beginPath();
+        ctx.arc(12.5 + j * 25, 12.5 + i * 25, r, 0, Math.PI * 2, true);
+        ctx.stroke();
+      }
+    }
+    
+  }
+setInterval(draw,i);
+
+// draw();  
+</script>

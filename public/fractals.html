@@ -1,0 +1,63 @@
+<canvas id='gc' width='450' height='300'></canvas>
+<script>
+x=y=150;
+x1=y1=150;
+xv=yv=3;
+
+window.onload=function(){
+	c=document.getElementById('gc');
+	cc=c.getContext('2d');
+	setInterval(update,1000/300);
+	c.addEventListener('mousemove',function(e){
+		// x1=x;
+		// y1=y;
+		// x = e.clientX;
+		// y = e.clientY;
+	})
+}
+function reset(){
+	bx=c.width/2;
+	by=c.height/2;
+	xv=-xv;
+	yv=10
+}
+
+
+
+
+
+
+function update(){
+
+	if (x<0) {
+		xv = -xv
+	}
+
+	if (x>c.width-xv) {
+		xv = -xv;
+	}
+
+	if (y<0 ) {
+		yv = -yv //* 0.3
+	}
+
+	if (y>c.height ) {
+		yv = -yv
+	} 
+
+	y+= yv;
+	x+= xv;
+	cc.beginPath();
+	cc.lineWidth=1;
+	cc.moveTo(x1,y1);
+	cc.lineTo(x,y);
+	cc.stroke();
+	cc.fillStyle='white'
+	cc.fillRect(0,0,100,20);
+	cc.fillStyle='black'
+	cc.fillText('x = ' + x +', y = '+y,10,10);
+	x1=x;
+	y1=y;
+
+}
+</script>
