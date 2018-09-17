@@ -1,4 +1,4 @@
-<canvas id='canvas' width='400' height='300'></canvas>
+<canvas id='canvas' width='400' height='600'></canvas>
 <script>
 
 var c = document.getElementById('canvas'),
@@ -9,7 +9,7 @@ var c = document.getElementById('canvas'),
 	bublCount= 100,
 	depth = 15;
 
-	fon = cc.createLinearGradient(0,0,0,400);
+	fon = cc.createLinearGradient(0,0,0,600);
 	fon.addColorStop(1,'#021b7f');
 	fon.addColorStop(0,'#0b9fdb');
 
@@ -81,7 +81,7 @@ function draw() {
 		grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
 		cc.fillStyle = grad;
-  		cc.fillRect(0, 0, 400, 350);
+  		cc.fillRect(0, 0, 400, 600);
 
 
         // cc.strokeStyle = e.color;
