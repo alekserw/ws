@@ -3,10 +3,15 @@
 
 var c = document.getElementById('canvas'),
 	cc = c.getContext('2d'),
+	
+	
 	bubls = [], 
 	bublCount= 100,
 	depth = 15;
 
+	fon = cc.createLinearGradient(0,0,0,400);
+	fon.addColorStop(1,'#021b7f');
+	fon.addColorStop(0,'#0b9fdb');
 
 // window.onload=function(){
 // 	// c=document.getElementById('gc');
@@ -37,22 +42,22 @@ for (i=0;i<bublCount;i++){
 }
 
 
-var radgrad2 = cc.createRadialGradient(105, 105, 20, 112, 120, 50);
-  radgrad2.addColorStop(0, '#FF5F98');
-  radgrad2.addColorStop(0.75, '#FF0188');
-  radgrad2.addColorStop(1, 'rgba(255, 1, 136, 0)');
-
-  console.log(radgrad2);
-
-
 setInterval(draw,1000/40)
 
+
+ // let grad = cc.createRadialGradient(45, 45, 10, 45, 45, 15);
+ //        grad.addColorStop(0, '#FF5F98');
+ //  		grad.addColorStop(0.75, '#FF0188');
+	// 	grad.addColorStop(1, 'rgba(255, 1, 136, 0)');
+
+	// 	cc.fillStyle = grad;
+ //  		cc.fillRect(0, 0, 350, 350);
 
 
 function draw() {
 	// let vector = 1;
 	// vector = Math.random() < .0001 ? -vector : vector; 
-	cc.fillStyle='white';
+	cc.fillStyle=fon; //'#75C8FF';
 	cc.fillRect(0,0,c.width,c.height);
 	
   	bubls.forEach((e,index, object)=>{
@@ -65,10 +70,24 @@ function draw() {
   			object[index] = b;
   		}
 
-  		cc.strokeStyle = e.color;
-        cc.beginPath();
-        cc.arc(e.x + Math.sin(e.y/15) * (e.d/depth), e.y, e.d, 0, Math.PI * 2, true);
-        cc.stroke();
+  		
+
+        let grad = cc.createRadialGradient(
+
+        	e.x + Math.sin(e.y/15) * (e.d/depth), e.y, e.d,
+			e.x + Math.sin(e.y/15) * (e.d/depth) - e.d/2, e.y - e.d/2, e.d + e.d);
+        grad.addColorStop(0, 'rgba(255,255,255,0.05)');
+  		grad.addColorStop(0.85, 'rgba(255,255,255,.2)');
+		grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+		cc.fillStyle = grad;
+  		cc.fillRect(0, 0, 400, 350);
+
+
+        // cc.strokeStyle = e.color;
+        // cc.beginPath();
+        // cc.arc(e.x + Math.sin(e.y/15) * (e.d/depth), e.y, e.d, 0, Math.PI * 2, true);
+        // cc.stroke();
   	})
 
 }
