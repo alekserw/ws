@@ -4,7 +4,7 @@
 var c = document.getElementById('canvas'),
 	cc = c.getContext('2d'),
 	bubls = [], 
-	bublCount= 50,
+	bublCount= 100,
 	depth = 15;
 
 
@@ -18,14 +18,15 @@ var c = document.getElementById('canvas'),
 // }
 
 class Bubl{
-	constructor(y=c.height+depth){
+	constructor(y=c.height+depth,x=c.width-depth){
 		this.x = Math.round(Math.random() * c.width);
 		this.y = y;
-		this.d = Math.round(Math.random() * depth);
-		this.color = 'green'
+		this.d = Math.round(Math.random() * depth)+1;
+		// this.color = 'green'
 	}
 	get hight(){return this.d};
 	get speed(){return this.d};
+	get color(){return 'rgba(52, 152, 219,'+ (this.d/depth + .3) +')'};
 };
 
 
@@ -40,19 +41,19 @@ setInterval(draw,1000/40)
 console.log(Bubl.count);
 
 function draw() {
-	
+	// let vector = 1;
+	// vector = Math.random() < .0001 ? -vector : vector; 
 	cc.fillStyle='white';
 	cc.fillRect(0,0,c.width,c.height);
 	
   	bubls.forEach((e,index, object)=>{
 
-  		e.y-=e.d/8;
+  		e.y-=e.d/3;
+  		e.x+=e.d/8 ;//* vector
 
-  		if (e.y < 0-e.d) {
+  		if (e.y < 0 - e.d || e.x > c.width + e.d) {
   			let b = new Bubl();
-  		object[index] = b;
-		// console.log( b);
-  		// console.log('new bubl created');
+  			object[index] = b;
   		}
 
   		cc.strokeStyle = e.color;
