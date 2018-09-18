@@ -28,7 +28,7 @@ var c = document.getElementById('canvas'),
 	height = window.innerHeight,
 	bubls = [], 
 	bublCount= 100,
-	depth = 5,
+	depth = 25,
 	mySound = new sound("boob.wav");
 	
 
@@ -44,7 +44,7 @@ var c = document.getElementById('canvas'),
     	let y = ev.clientY - c.offsetTop;
 		
     	bubls.forEach((e,index, object)=>{
-	    		if ((e.x > x-10 && e.x < x+10) && (e.y > y-10 && e.y < y+10)){ 
+	    		if ((e.x > x-depth/2 && e.x < x+depth/2) && (e.y > y-depth/2 && e.y < y+depth/2)){ 
 	    			let b = new Bubl();
   					object[index] = b;
 	    			mySound.play();
