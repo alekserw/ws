@@ -4,29 +4,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!DOCTYPE html><head></body>
 
-<canvas id='canvas' width='680' height='960'></canvas>
+<canvas id='canvas' ></canvas>
 <script>
 
 var c = document.getElementById('canvas'),
 	cc = c.getContext('2d'),
-	
-	
+	width  = window.innerWidth,
+	height = window.innerHeight,
 	bubls = [], 
 	bublCount= 100,
 	depth = 15;
 
-	fon = cc.createLinearGradient(0,0,0,960);
+	fon = cc.createLinearGradient(0,0,0,height);
 	fon.addColorStop(1,'#021b7f');
 	fon.addColorStop(0,'#0b9fdb');
 
-// window.onload=function(){
-// 	// c=document.getElementById('gc');
-// 	// cc=c.getContext('2d');
-// 	setInterval(draw(),1000/30);
-// 	// c.addEventListener('mousemove',function(e){
-// 	// 	p1y = e.clientY-ph/2
-// 	// })
-// }
+	c.width =  width; 
+	c.height = height;
+	
 
 class Bubl{
 	constructor(y=c.height+depth,x=c.width-depth){
@@ -51,15 +46,6 @@ for (i=0;i<bublCount;i++){
 setInterval(draw,1000/40)
 
 
- // let grad = cc.createRadialGradient(45, 45, 10, 45, 45, 15);
- //        grad.addColorStop(0, '#FF5F98');
- //  		grad.addColorStop(0.75, '#FF0188');
-	// 	grad.addColorStop(1, 'rgba(255, 1, 136, 0)');
-
-	// 	cc.fillStyle = grad;
- //  		cc.fillRect(0, 0, 350, 350);
-
-
 var alfa = 1, beta= 1;
 
 if (window.DeviceMotionEvent != undefined) {
@@ -74,8 +60,6 @@ if (window.DeviceMotionEvent != undefined) {
 
 
 function draw() {
-	// let vector = 1;
-	// vector = Math.random() < .0001 ? -vector : vector; 
 	cc.fillStyle=fon; //'#75C8FF';
 	cc.fillRect(0,0,c.width,c.height);
 	
@@ -89,8 +73,6 @@ function draw() {
   			object[index] = b;
   		}
 
-  		
-
         let grad = cc.createRadialGradient(
 
         	beta/10 * e.d/depth + e.x + Math.sin(e.y/15) * (e.d/depth), 		 alfa/10 * e.d/depth + e.y, 		 e.d,
@@ -101,7 +83,7 @@ function draw() {
 		grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
 		cc.fillStyle = grad;
-  		cc.fillRect(0, 0, 680, 960);
+  		cc.fillRect(0, 0, width, height);
 
 
   		// cc.fillStyle = 'white';
@@ -109,10 +91,6 @@ function draw() {
   		// cc.fillStyle = 'black';
   		// cc.fillText('alfa: '+alfa+', beta: '+beta,10,15);
 
-        // cc.strokeStyle = e.color;
-        // cc.beginPath();
-        // cc.arc(e.x + Math.sin(e.y/15) * (e.d/depth), e.y, e.d, 0, Math.PI * 2, true);
-        // cc.stroke();
   	})
 
 }
