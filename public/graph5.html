@@ -87,8 +87,8 @@ if (window.DeviceMotionEvent != undefined) {
 	window.ondevicemotion = function(e) {
 		
 		if ( e.rotationRate ) {
-			alfa = Math.round(e.rotationRate.alpha);
-			beta = Math.round(e.rotationRate.beta);
+			alfa = e.rotationRate.alpha;
+			beta = e.rotationRate.beta;
 		}		
 	}
 }
