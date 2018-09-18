@@ -1,4 +1,10 @@
-<canvas id='canvas' width='400' height='350'></canvas>
+
+<!DOCTYPE html><head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html><head></body>
+
+<canvas id='canvas' width='680' height='960'></canvas>
 <script>
 
 var c = document.getElementById('canvas'),
@@ -9,7 +15,7 @@ var c = document.getElementById('canvas'),
 	bublCount= 100,
 	depth = 15;
 
-	fon = cc.createLinearGradient(0,0,0,400);
+	fon = cc.createLinearGradient(0,0,0,960);
 	fon.addColorStop(1,'#021b7f');
 	fon.addColorStop(0,'#0b9fdb');
 
@@ -95,14 +101,13 @@ function draw() {
 		grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
 
 		cc.fillStyle = grad;
-  		cc.fillRect(0, 0, 400, 350);
+  		cc.fillRect(0, 0, 680, 960);
 
 
-
-  		cc.fillStyle = 'white';
-  		cc.fillRect(0, 0, 100, 20);
-  		cc.fillStyle = 'black';
-  		cc.fillText('alfa: '+alfa+', beta: '+beta,10,15);
+  		// cc.fillStyle = 'white';
+  		// cc.fillRect(0, 0, 100, 20);
+  		// cc.fillStyle = 'black';
+  		// cc.fillText('alfa: '+alfa+', beta: '+beta,10,15);
 
         // cc.strokeStyle = e.color;
         // cc.beginPath();
@@ -115,3 +120,4 @@ function draw() {
 
 // draw();  
 </script>
+</body>
