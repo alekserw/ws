@@ -29,10 +29,12 @@ var c = document.getElementById('canvas'),
 	bubls = [], 
 	bublCount= 100,
 	depth = 15,
+	score =  0,
 	mySound = new sound("boob.wav");
 	
 
 	fon = cc.createLinearGradient(0,0,0,height);
+	
 	fon.addColorStop(1,'#021b7f');
 	fon.addColorStop(0,'#0b9fdb');
 
@@ -48,6 +50,7 @@ var c = document.getElementById('canvas'),
 	    			let b = new Bubl();
   					object[index] = b;
 	    			mySound.play();
+	    			score+=1;
 
 					// console.log(x,y,Math.round(e.x),Math.round(e.y));
 	    		}
@@ -118,11 +121,9 @@ function draw() {
 		cc.fillStyle = grad;
   		cc.fillRect(0, 0, width, height);
 
-
-  		// cc.fillStyle = 'white';
-  		// cc.fillRect(0, 0, 100, 20);
-  		// cc.fillStyle = 'black';
-  		// cc.fillText('alfa: '+alfa+', beta: '+beta,10,15);
+  		cc.font = "30px Verdana"
+  		cc.fillStyle = 'white';
+  		cc.fillText(score,20,40);
 
   	})
 
