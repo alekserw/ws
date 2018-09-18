@@ -87,8 +87,9 @@ function draw() {
 
         let grad = cc.createRadialGradient(
 
-        	e.x + Math.sin(e.y/15) * (e.d/depth), e.y, e.d,
-			e.x + Math.sin(e.y/15) * (e.d/depth) - e.d/2, e.y - e.d/2, e.d + e.d);
+        	alfa + e.x + Math.sin(e.y/15) * (e.d/depth), 		 beta + e.y, 		 e.d,
+			alfa + e.x + Math.sin(e.y/15) * (e.d/depth) - e.d/2, beta + e.y - e.d/2, e.d + e.d);
+        
         grad.addColorStop(0, 'rgba(255,255,255,0.05)');
   		grad.addColorStop(0.85, 'rgba(255,255,255,.2)');
 		grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
