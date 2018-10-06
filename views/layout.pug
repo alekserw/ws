@@ -5,11 +5,17 @@ head
 	meta(name='viewport', content='width=device-width, initial-scale=1.0')
 	link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')
 	script(src='/front.js')
+
+	script.
+		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='http://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-PP4B3V8');
+
 	style
 		|ul.nav a {
 		|	text-transform: capitalize;
 		|}
 body
+	noscript
+		iframe(src="https://www.googletagmanager.com/ns.html?id=GTM-PP4B3V8" height="0" width="0" style="display:none;visibility:hidden")
 	.container
 		h1= page
 		hr
@@ -19,5 +25,6 @@ body
 			li: a.nav-link(href='/game.html') Game
 			li: a.nav-link(href='/graph4.html') Graph4
 			li: a.nav-link(href='/graph5.html') Graph5
+			li: a.nav-link(href='/webgl.html') WebGL
 		hr
 		block content
