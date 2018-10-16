@@ -1,39 +1,71 @@
-<canvas id='canvas' width='450' height='300'></canvas>
+<canvas id='canvas' width='1000' height='1000'></canvas>
 <script>
 
 var r = 10;
+var   x=500,
+      y=800,
+      l=200,
+      d=30,
+      a=0,
+      ld=3;
 
-// window.onload=function(){
-// 	// var ctx = document.getElementById('canvas').getContext('2d');
-// 	// cc=ctx.getContext('2d');
-	
-// 	// ctx.addEventListener('mousemove',function(e){
-// 	// 	p1y = e.clientY-ph/2
-// 	// })
-// }
-
+var ctx = document.getElementById('canvas').getContext('2d');
 
 
-function draw() {
-    var ctx = document.getElementById('canvas').getContext('2d');
-    
-    r+=1;
 
-    ctx.fillStyle='white'
-	ctx.fillRect(0,0,ctx.width,ctx.height);
+function print(x,x1,y,y1){
+  ctx.beginPath();
+  ctx.moveTo(x,y);
+  ctx.lineTo(x1,y1);
+  ctx.stroke();   
+}
 
-    for (var i = 0; i < 16; i++) {
-      for (var j = 0; j < 16; j++) {
-        ctx.strokeStyle = 'rgb(0, ' + Math.floor(255 - 42.5 * i) + ', ' + 
-                         Math.floor(255 - 42.5 * j) + ')';
-        ctx.beginPath();
-        ctx.arc(12.5 + j * 25, 12.5 + i * 25, r, 0, Math.PI * 2, true);
-        ctx.stroke();
-      }
-    }
-    
-  }
-setInterval(draw,30);
+function draw(x,y,a,l,d,ld) {
+      
+      if(l<1) return;
+
+      a=a-d;
+
+      x1 = x - (l * Math.cos(a))     
+      y1 = y - (l * Math.cos(90-a))
+      
+      print(x,x1,y,y1);
+
+      draw(x1,y1,a,l-l/ld,d,ld);
+      
+      a=a+d*2;
+
+      x1 = x - (l * Math.cos(a))     
+      y1 = y - (l * Math.cos(90-a))
+      
+      print(x,x1,y,y1);      
+      draw(x1,y1,a,l-l/ld,d,ld);
+  };
+
+setInterval(function(){
+      x=500;
+      y=400;
+      l=150  //90 + 10 * Math.random();
+      d=30 * Math.random();
+      a=2;// * Math.random();
+      ld=3 //2+1 * Math.random() ;
+
+
+      ctx.fillStyle='white';
+      ctx.fillRect(0,0,1000,1000);
+      ctx.fillStyle='black';
+      ctx.fillText('d: '+ d,10,50);
+      ctx.fillText('a: '+ a,10,60);
+      ctx.fillText('l: '+ l,10,70);
+
+      
+    draw(x,y,a,l,d,ld);
+
+
+},3000)
+
+
+
 
 // draw();  
 </script>
