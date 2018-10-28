@@ -1,27 +1,21 @@
-delay(300)
-console.log('============================')
+// var express = require('express');
+// var router = express.Router();
+// var request = require('request');
+//
+// router.get('/', function(req, res, next) {
+//   request({
+//     uri: 'https://geek-jokes.sameerkumar.website/api'
+//   }).pipe(res);
+// });
+//
+// // module.exports =
+//
+// console.log(router())
 
-// var text = 'JavaScript concat string with backspace - Stack Overflow'
 
-//
-// var possible = " - ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkllmnopqrstuvwxyz0123456789";
-//
-//   var i = 0;
-//
-//
-// function rand(){
-// 	if(i == text.length) return
-// 	var myVar = setInterval(()=>{
-// 		var r = possible.charAt(Math.floor(Math.random() * possible.length));
-// 		if (r == text[i]){
-// 			process.stdout.write('\b' + r+' ');
-// 			i++;
-// 			if(i > text.length-1) clearInterval(myVar);
-// 		} else {
-// 		process.stdout.write('\b' + r);
-// 		}
-// 	},2);
-// };
-//
-//
-// rand()
+const request = require('request');
+request('https://geek-jokes.sameerkumar.website/api', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    console.log(body) // Show the HTML for the Google homepage.
+  }
+});

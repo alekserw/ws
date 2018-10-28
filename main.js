@@ -4,6 +4,7 @@ var express = require('express'),
 	cookieParser = require('cookie-parser'),
 	passport = require('passport'),
 	app = express(),
+	request = require('request'),
 	server;
 
 
@@ -49,8 +50,18 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
 	console.log(msg);
+
+	
+	request('https://geek-jokes.sameerkumar.website/api', function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+			bot.sendMessage(chatId, body);
+	    // console.log(body) // Show the HTML for the Google homepage.
+	  }
+	});
+
+
   // send a message to the chat acknowledging receipt of their message
-  bot.sendMessage(chatId, 'Received your message, хахаха');
+
 });
 
 
