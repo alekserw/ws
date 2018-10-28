@@ -1,58 +1,27 @@
+delay(300)
 console.log('============================')
 
-var o = {
-	a:1,
-	b:2
-};
+// var text = 'JavaScript concat string with backspace - Stack Overflow'
 
-var o1 = Object.create(o);
-
-o1.z=1
-
-for (property in o1)
-	console.log(property)
-
-
-
-
-
-
-
-
-// function Employee() {
-//   this.name = "";
-//   this.dept = "general";
-// }
-
-
-
-// function Manager() {
-//   Employee.call(this);
-//   this.reports = [];
-// }
-// Manager.prototype = Object.create(Employee.prototype);
-// //создаем пустой объект с прототипом от коструктора Employee
-// //и используем этот объект как прототип для Manager
-
-// console.log('1'+ Manager)
-
-
-// function WorkerBee() {
-//   Employee.call(this);
-//   this.projects = [];
-// }
-
-// WorkerBee.prototype = Object.create(Employee.prototype);
-// function SalesPerson() {
-//    WorkerBee.call(this);
-//    this.dept = "sales";
-//    this.quota = 100;
-// }
-// SalesPerson.prototype = Object.create(WorkerBee.prototype);
-
-// function Engineer() {
-//    WorkerBee.call(this);
-//    this.dept = "engineering";
-//    this.machine = "";
-// }
-// Engineer.prototype = Object.create(WorkerBee.prototype);
+//
+// var possible = " - ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkllmnopqrstuvwxyz0123456789";
+//
+//   var i = 0;
+//
+//
+// function rand(){
+// 	if(i == text.length) return
+// 	var myVar = setInterval(()=>{
+// 		var r = possible.charAt(Math.floor(Math.random() * possible.length));
+// 		if (r == text[i]){
+// 			process.stdout.write('\b' + r+' ');
+// 			i++;
+// 			if(i > text.length-1) clearInterval(myVar);
+// 		} else {
+// 		process.stdout.write('\b' + r);
+// 		}
+// 	},2);
+// };
+//
+//
+// rand()

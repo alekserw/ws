@@ -14,9 +14,7 @@ var ctx = document.getElementById('canvas').getContext('2d');
 
 
 function print(x,x1,y,y1){
-  ctx.beginPath();
-  ctx.moveTo(x,y);
-  ctx.lineTo(x1,y1);
+  ctx.rect(20,20,150,100);
   ctx.stroke();   
 }
 

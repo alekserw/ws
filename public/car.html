@@ -1,0 +1,61 @@
+
+
+<canvas id='canvas' width='500' height='500'></canvas>
+<!-- <img id="car" width="220" height="277" src="car.jpg" alt="The Scream"> -->
+<script>
+// window.onload = function() {
+var ctx = document.getElementById('canvas').getContext('2d')  
+     
+function draw(){  
+      ctx.fillStyle='white';
+      ctx.fillRect(0,0,ctx.width,ctx.height);
+      
+      var t={
+        x:100,
+        y:100,
+        corpus:40, //corpus
+        get tower () {return this.corpus / 2}, //tower
+        get tx () {return this.x + this.corpus / 2 - this.corpus/4}, //tower
+        get ty () {return this.y + this.corpus / 2 - this.corpus/6}, //tower
+        get gx () {return this.x + this.corpus / 2 - this.corpus/4}, //gun
+        get gy () {return this.y + this.corpus / 2 - this.corpus/6}, //gun
+        get rails () {return this.corpus / 5},
+        get r1x (){return this.x - this.rails},
+        get r1y (){return this.y - this.rails},
+        get r1w (){return this.rails},
+        get r1h (){return this.corpus + this.rails * 2},
+        get r2x (){return this.corpus + this.x}        
+      };
+
+      console.log(t)
+
+      // ctx.rotate(2*Math.PI/20);
+      ctx.rect(t.x,t.y,t.corpus,t.corpus) //corpus
+      ctx.rect(t.r1x,t.r1y,t.r1w,t.r1h) //rails
+      ctx.rect(t.r2x,t.r1y,t.r1w,t.r1h) //rails
+      ctx.rect(t.tx,t.ty,t.tower,t.tower) //tower
+
+      ctx.stroke();  
+    }
+ 
+var speed=5;
+
+draw()
+
+document.onkeydown = function(event) {
+    switch (event.keyCode) {
+       case 37:
+            x-=speed;draw();// alert('Left key pressed');
+          break;
+       case 38:
+            y-=speed;draw();// alert('Up key pressed');
+          break;
+       case 39:
+            x+=speed;draw();// alert('Right key pressed');
+          break;
+       case 40:
+            y+=speed;draw();// alert('Down key pressed');
+          break;
+    }
+};
+</script>
