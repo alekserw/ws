@@ -17,16 +17,19 @@
   },
   "homepage": "https://github.com/alekserw/ws#readme",
   "dependencies": {
+    "@google-cloud/bigquery": "^2.0.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "node-telegram-bot-api": "^0.30.0",
-    "nodemon": "^1.18.5",
+    "nodemon": "^1.18.7",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pug": "^2.0.3",
-    "telegraf": "^3.24.1",
+    "redux": "4.0.1",
+    "telegraf": "^3.25.0",
     "to": "^0.2.9",
-    "update": "^0.7.4"
+    "update": "^0.7.4",
+    "util": "^0.11.1"
   }
 }

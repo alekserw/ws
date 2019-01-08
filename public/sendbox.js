@@ -1,21 +1,39 @@
-// var express = require('express');
-// var router = express.Router();
-// var request = require('request');
-//
-// router.get('/', function(req, res, next) {
-//   request({
-//     uri: 'https://geek-jokes.sameerkumar.website/api'
-//   }).pipe(res);
-// });
-//
-// // module.exports =
-//
-// console.log(router())
+var treeObj = {
+  hight : 10,
+  weight : 10,
+  background : '*'
+}
 
 
-const request = require('request');
-request('https://geek-jokes.sameerkumar.website/api', function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    console.log(body) // Show the HTML for the Google homepage.
+var hight = 31,
+    weight = 10,
+    background = ' ',
+    tree = [];
+console.log(' ');
+var isPrinted = true;
+
+function print(){
+  console.log('\033[2J');
+  for (i = 0; i < weight ; i++){
+    for (j = 0; j < hight ; j++){
+      tree[i,j] = background;
+      if (  j >= (hight -1 ) / 2 - i   &&   j <= (hight -1 ) / 2 + i  ) {
+        if (Math.random() > 0.1 ) {
+          process.stdout.write('*');
+        } else process.stdout.write('@');
+      } else process.stdout.write(background)
+    }
+    process.stdout.write('\n')
   }
-});
+
+  isPrinted = true;
+}
+
+setInterval(()=>{
+  print();
+
+},1000)
+console.log('');
+
+// setUpTree(tree);
+// print(tree);
