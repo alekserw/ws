@@ -1,63 +1,53 @@
-<canvas id='gc' width='450' height='300'></canvas>
+<canvas id='gc' width='750' height='600'></canvas>
 <script>
-x=y=150;
-x1=y1=150;
-xv=yv=3;
 
 window.onload=function(){
 	c=document.getElementById('gc');
 	cc=c.getContext('2d');
-	setInterval(update,1000/300);
-	c.addEventListener('mousemove',function(e){
-		// x1=x;
-		// y1=y;
-		// x = e.clientX;
-		// y = e.clientY;
-	})
+
+	var interval = 4000;
+	setInterval(()=>{
+		var x = c.width / 2,
+			y = c.height - 100,
+			l = 150,// + 50 * Math.random(),
+			a = Math.PI / 180 * 180,
+			angelChange = 30 + 90 * Math.random(),
+			color = "#"+((1<<24)*Math.random()|0).toString(16);
+			;
+		cc.fillStyle='white'
+		cc.fillRect(0,0,c.width,c.height);
+		fractal(x,y,l,a,angelChange,color)
+		interval = 5000;
+	},interval)
+		
+	
 }
-function reset(){
-	bx=c.width/2;
-	by=c.height/2;
-	xv=-xv;
-	yv=10
-}
 
+function fractal(x,y,l,a,angelChange,color){
 
-
-
-
-
-function update(){
-
-	if (x<0) {
-		xv = -xv
-	}
-
-	if (x>c.width-xv) {
-		xv = -xv;
-	}
-
-	if (y<0 ) {
-		yv = -yv //* 0.3
-	}
-
-	if (y>c.height ) {
-		yv = -yv
-	} 
-
-	y+= yv;
-	x+= xv;
+	var x1 = x + l * Math.sin(a),
+		y1 = y + l * Math.cos(a);
+	
+	cc.strokeStyle= "#"+((6770000 + 7216*Math.random())|0).toString(16)
 	cc.beginPath();
-	cc.lineWidth=1;
-	cc.moveTo(x1,y1);
-	cc.lineTo(x,y);
+	cc.lineWidth=0.8;
+	cc.moveTo(x,y);
+	cc.lineTo(x1,y1);
 	cc.stroke();
-	cc.fillStyle='white'
-	cc.fillRect(0,0,100,20);
-	cc.fillStyle='black'
-	cc.fillText('x = ' + x +', y = '+y,10,10);
-	x1=x;
-	y1=y;
-
+	l = l * .7;
+	if (l > 2){
+	setTimeout(()=>{	
+	fractal(x1,y1,l,a - Math.PI / 180 * angelChange,angelChange,color)
+	fractal(x1,y1,l,a + Math.PI / 180 * angelChange,angelChange,color)
+	},50)
 }
+
+	// cc.fillStyle='white'
+	// cc.fillRect(0,0,100,20);
+	// cc.fillStyle='black'
+	// cc.fillText('x = ' + x +', y = '+y,10,10);
+	
+}
+
+
 </script>
