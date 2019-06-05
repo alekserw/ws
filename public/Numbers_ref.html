@@ -1,0 +1,150 @@
+<canvas id='gc' width='950' height='900'></canvas>
+<div class="box">
+    <p>
+      Move the mouse around in this box to watch its coordinates change.
+    </p>
+    <p>
+      <code>pageX</code>: <b id="x">n/a</b>
+    </p>
+  </div>
+
+<script>
+
+var n = 4,
+    mapSize = 200,
+    s  = mapSize/n,
+    sp = 0,
+    arr = new Array(n**2),
+    d= 25,
+    left = s, 
+    space = 3*d,
+    nl = 3
+
+window.onload=function(){
+
+    var box = document.querySelector(".box");
+    var pageX = document.getElementById("x");
+
+    gc.addEventListener("mousemove", updateDisplay, false);
+    // box.addEventListener("mouseenter", updateDisplay, false);
+    // box.addEventListener("mouseleave", updateDisplay, false);
+
+	c  = document.getElementById('gc');
+	cc = c.getContext('2d');
+    
+
+}
+
+function updateDisplay(event) {
+    
+    var i = Math.round((event.pageX - 10) / (s+sp)) 
+        ,j = Math.round((event.pageY - 10) / (s+sp));
+    
+    
+    if (j>0 && j <= n && i>0 && i<=n) {
+        // cc.fillRect(i * (s + sp), j * (s + sp) ,s,s); 
+
+        var el = i == 1 ? j : (i-1)*n +j
+        arr[el] = 1 
+        
+    }    
+}
+
+
+setInterval(function(){
+
+    cc.clearRect(0, 0, gc.width, gc.height);
+    
+    printSquare();
+    printNN();
+    
+    cc.stroke(); 
+    
+},100)
+
+
+function printSquare(){
+    cc.beginPath();
+    cc.lineWidth = ".4";
+    cc.strokeStyle = "red";
+    cc.fillStyle = "#FF0000";
+    
+    for (var  i = 1; i <= n; i++ ){
+        for (var  j = 1; j <= n; j++){           
+            if (arr[i == 1 ? j : (i-1)*n +j]){
+                cc.fillRect(i * (s + sp), j * (s + sp) ,s,s); 
+            } else {
+                cc.rect(i * (s + sp), j * (s + sp) ,s,s);
+            }
+        }
+    }
+    cc.closePath();
+    cc.stroke(); 
+    
+};
+
+
+function vector (x,y,x1,y1,l){
+    var a = y1 - y,// y == y1 ? 0 : y > y1 ? y - y1 : y1 - y,
+        b = x1 - x,
+        x_ = x + l * Math.cos(Math.atan(a/b)),
+        y_ = y + l * Math.sin(Math.atan(a/b)),
+        x1_ = x1 - l * Math.cos(Math.atan(a/b)),
+        y1_ = y1 - l * Math.sin(Math.atan(a/b))
+        
+        return [x_,y_,x1_,y1_]
+}
+
+
+function printNN(){
+
+    // cc.stroke(); 
+    
+    for (var i = 1; i<=n; i++){
+        for (var j = 0; j<=nl; j++){
+            
+            var x = left + d + space * 1.5 * j,
+                y = mapSize + 50 + i * space + d;
+            
+            // circles
+            // join lines
+            cc.lineWidth = ".1";
+            // cc.strokeStyle = "red";
+            
+            for (var b = 1; b <= n; b++){
+                cc.beginPath();
+                
+                var x1 = left + d + space * 1.5 * (j + 1),
+                y1 = mapSize + 50 + b * space + d;
+                
+                if (j!=3){
+                    var xy = vector(x,y,x1,y1,d);
+                    // console.log();
+                    cc.moveTo(xy[0],xy[1])
+                    cc.lineTo(xy[2],xy[3])
+                }
+                cc.closePath();
+                cc.stroke();
+            }
+            
+            cc.beginPath();        
+            cc.lineWidth = "1";
+            // cc.strokeStyle = "red";
+            cc.moveTo(x+d, y)
+            cc.arc( x, y ,d ,0,2*Math.PI);
+            cc.closePath();
+            cc.stroke();
+            // cc.closePath();
+        }  
+    }
+    
+    // cc.stroke(); 
+    
+
+}
+
+    
+</script>
+
+
+  
